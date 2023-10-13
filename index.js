@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import productRouter from "./routes/product.js";
+import userRouter from "./routes/user.js";
 
 const app=express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(cors());
 
 
 app.use("/product",productRouter);
+app.use("/user",userRouter);
 
 const CONNECTION_URL =process.env.MONGO_URL;
 const PORT = process.env.PORT|| 5001;
