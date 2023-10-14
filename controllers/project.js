@@ -54,8 +54,7 @@ export const addToCart = async (req, res) => {
         const user = await User.findById({_id:userId});
         const product = await Product.findById({_id:productId});
 
-        console.log(user);
-        console.log(product)
+       
 
         if (!user || !product) {
             return res.status(404).json({ message: 'User or product not found' });
@@ -80,3 +79,40 @@ export const addToCart = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+export const deleteCartItem= async (req,res)=>{
+   
+    const {userId,cartItemId }=req.params;
+
+    try {
+
+
+        const user=await User.findById({_id:userId});
+
+        console.log(user)
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const cartItemIndex = user.cart.findIndex((item) => item._id.equals(cartItemId));
+
+          console.log(cartItemIndex)
+        if (cartItemIndex === -1) {
+            return res.status(404).json({ message: 'Cart item not found' });
+        }
+
+        user.cart.splice(cartItemId,1);
+
+        const updatedUser = await user.save();
+
+        res.status(200).json(updatedUser);
+
+        
+    } catch (error) {
+        
+        console.log(error);
+
+    }
+}
