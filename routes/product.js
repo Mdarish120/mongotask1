@@ -1,5 +1,5 @@
 import express from "express";
-import { createProduct,updateProduct ,deleteProduct,addToCart,deleteCartItem} from "../controllers/project.js";
+import { createProduct,updateProduct ,deleteProduct,addToCart,deleteCartItem,moveCartToOrders} from "../controllers/product.js";
 
 const router = express.Router();
 
@@ -8,5 +8,6 @@ const router = express.Router();
  router.delete("/:id",deleteProduct);
  router.post("/cart/:userId/:productId",addToCart);
  router.delete("/cart/:userId/:cartItemId",deleteCartItem);
- 
+
+
 export default router;
